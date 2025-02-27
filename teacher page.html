@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Устанавливаем кодировку и настройки для адаптивности страницы -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список студентов</title>
+    <link rel="stylesheet" href="teacher page.css">
+</head>
+<body>
+    <!-- Шапка с кнопками "Добавить" и "Выход" -->
+    <div class="header">
+        <div>
+            <button onclick="window.location.href='administrator (select role).html'">Добавить</button>
+            <button onclick="window.location.href='role selection.html'">Назад</button>
+        </div>
+        <button onclick="logout()">Выход</button>
+    </div>
+
+    <!-- Фильтры для выбора типа пользователя и класса -->
+    <div class="teacher">
+        <h3 class="teacher-title">Учителя</h3>
+    </div>
+
+    <!-- Список студентов -->
+    <div class="user-list" id="userList">
+        <!-- Здесь будут отображаться студенты -->
+    </div>
+
+
+    
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <a href="#" class="back-arrow" onclick="closeDeleteModal()">&#8592;</a>
+            <h2>Вы собираетесь удалить олимпиаду. Вы уверены?</h2>
+            <button class="confirmDelete">Удалить</button>
+        </div>
+    </div>
+
+    <script>
+        // Получаем список студентов из localStorage, если он существует
+        const userList = document.getElementById('userList');
+        const checkboxes = document.querySelectorAll('.class-checkbox');
+        const classDropdown = document.getElementById('classDropdown');
+        const modal_content = document.querySelector('.modal-content');
+        const modal = document.querySelector('.modal');
+        const confirmDelete = document.querySelector('.confirmDelete');
+
+        // Функция для отображения или скрытия выпадающего списка классов
+        function toggleDropdown() {
+            classDropdown.style.display = classDropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Пример данных студентов
+        const students = JSON.parse(localStorage.getItem('teacher')) || [
+            { lastName: "Иванов", firstName: "Иван", middleName: "Иванович" },
+            { lastName: "Петров", firstName: "Петр", middleName: "Петрович" },
+            { lastName: "Сидоров", firstName: "Сидор", middleName: "Сидорович" },
+            { lastName: "Волкова", firstName: "Мария", middleName: "Алексеевна" },
+        ];
+
+        // Функция для отображения списка студентов
+        function renderStudents() {
+            // Фильтруем студентов по выбранным классам
+            const selectedClasses = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            userList.innerHTML = ''; // Очищаем текущий список студентов
+
+            const filteredStudents = selectedClasses.length
+                ? students.filter(student => selectedClasses.includes(student.class))
+                : students; // Если классы выбраны, фильтруем, иначе показываем всех студентов
+
+            if (filteredStudents.length) {
+                filteredStudents.forEach((student, index) => {
+                    const lastName = student.lastName || '';
+                    const firstName = student.firstName || '';
+                    const middleName = student.middleName || '';
+
+                    // Создаем элемент для каждого студента
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    userItem.innerHTML = `
+                        <span>${lastName} ${firstName} ${middleName}</span>
+                        <button onclick="event.stopPropagation(); removeStudent(${index}) class="crossDel"">&times;</button>
+                    `;
+                    userItem.addEventListener('click', () => redirectToEditPage(student));
+                    userList.appendChild(userItem);
+                });
+            } else {
+                userList.innerHTML = '<div>Нет учителей для отображения</div>';
+            }
+        }
+        confirmDelete.addEventListener('click', () =>{
+            modal.style.display = 'flex'
+        })
+
+        // Функция для удаления студента
+        function removeStudent(index) {
+            students.splice(index, 1); // Удаляем студента из массива
+            localStorage.setItem('teacher', JSON.stringify(students)); // Сохраняем изменения в localStorage
+            renderStudents(); // Перерисовываем список
+        }
+
+        // Функция для редиректа на страницу редактирования
+        function redirectToEditPage(student) {
+            localStorage.setItem('editingStudent', JSON.stringify(student));
+            window.location.href = 'add_teacher.html'; // Переход на страницу редактирования
+        }
+
+        // Функция для выхода (удаляет текущего пользователя из localStorage)
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'role selection.html'; // Переход на страницу входа
+        }
+
+        // Изначально отображаем студентов
+        renderStudents();
+
+        // Добавляем обработчик для изменения фильтров классов
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', renderStudents);
+        });
+
+
+       
+    </script>
+</body>
+</html>

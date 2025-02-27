@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление</title>
+    <link rel="stylesheet" href="add teacher.css">
+</head>
+<body>
+    <!-- Ссылка для возврата на предыдущую страницу -->
+    <a href="administrator (select role).html" class="back-arrow" onclick="goBack()">&#8592;</a>
+    <!-- Основной контейнер для формы -->
+    <div class="container">
+        <h1>Добавление учителя</h1>
+        <!-- Форма для добавления нового пользователя -->
+        <form id="addUserForm">
+            <input type="text" id="lastName" class="input-field" name="lastName" placeholder="Фамилия" required />
+            <input type="text" id="firstName" class="input-field" name="firstName" placeholder="Имя" required />
+            <input type="text" id="middleName" class="input-field" name="middleName" placeholder="Отчество" required />
+            <input type="text" id="login" class="input-field" name="login" placeholder="Логин" required />
+            <input type="password" id="password" class="input-field" name="password" placeholder="Пароль" required />
+            <button type="button" id="createBtn" class="button">Создать</button>
+        </form>
+    </div>
+
+    <script>
+        // Функция для возвращения на предыдущую страницу
+        function goBack() {
+            window.history.back();
+        }
+
+        // Получаем все поля ввода и кнопку "Добавить"
+        const inputs = document.querySelectorAll('.input-field');
+        const createBtn = document.getElementById('createBtn');
+
+        // Добавляем обработчик событий для всех полей ввода
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                // Проверяем, что все поля заполнены
+                const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
+                // Если все поля заполнены, кнопка активна, иначе она деактивирована
+                createBtn.disabled = !allFilled;
+
+                // Добавляем или убираем класс 'active' в зависимости от состояния
+                if (allFilled) {
+                    createBtn.classList.add('active'); // Добавляем активный стиль
+                } else {
+                    createBtn.classList.remove('active'); // Убираем активный стиль
+                }
+            });
+        });
+
+        // Обработчик клика по кнопке "Добавить"
+        createBtn.addEventListener('click', () => {
+            // Считываем значения с каждого поля формы
+            const lastName = document.getElementById('lastName').value;
+            const firstName = document.getElementById('firstName').value;
+            const middleName = document.getElementById('middleName').value;
+            const login = document.getElementById('login').value;
+            const password = document.getElementById('password').value;
+
+            // Получаем существующий список пользователей из localStorage (если он есть)
+            let teacher = JSON.parse(localStorage.getItem('teacher')) || [];
+
+            // Добавляем нового пользователя в массив
+            teacher.push({ lastName, firstName, middleName, login, password });
+
+            // Сохраняем обновленный список пользователей в localStorage
+            localStorage.setItem('teacher', JSON.stringify(teacher));
+
+            // Перенаправляем на страницу выбора роли
+            window.location.href = 'teacher page.html';
+        });
+    </script>
+</body>
+</html>

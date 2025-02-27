@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Просмотр олимпиад</title>
+    <link rel="stylesheet" href="watcholympiad.css">
+</head>
+<body>
+    <!-- Контейнер с кнопками (Добавить и Выход) -->
+    <div class="header-container">
+        <button onclick="window.location.href='add an Olympiad.html'">Добавить</button>
+        <button id="logoutButton">Выход</button>
+    </div>
+
+    <!-- Блок с аватаром и именем пользователя -->
+    <div class="fio-container">
+        <div class="avatar">
+            <img src="img/аватар.svg" alt="Avatar">
+        </div>
+        <div class="name" id="userName">Мария Волкова 1Б</div>
+    </div>
+
+    <!-- Контейнер для вывода списка олимпиад -->
+    <div id="olympiadsContainer"></div>
+    <div class="modal" id="logoutModal">
+        <div class="modal-content">
+            <a href="javascript:history.back()" class="back-arrow" onclick="closeModal()">&#8592;</a>
+            <h2>Вы собираетесь выйти из аккаунта. Вы уверены?</h2>
+            <button onclick="window.location.href='role selection.html'">Выйти</button>
+        </div>
+    </div>
+
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <a href="#" class="back-arrow" onclick="closeDeleteModal()">&#8592;</a>
+            <h2>Вы собираетесь удалить олимпиаду. Вы уверены?</h2>
+            <button id="confirmDelete">Удалить</button>
+        </div>
+    </div>
+
+    <div class="background__image">
+        <button class="close-btn"><img src="img/icon.svg" alt=""></button>
+        <div class="image-place">
+            
+        </div>
+    </div>
+
+    <script src="watcholymp.js"></script>
+</body>
+</html>
+

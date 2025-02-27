@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <style>
+        /* Сбрасываем стандартные отступы и границы для всех элементов */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(img/Vector1.svg); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Высота экрана на всю высоту окна */
+            background-color: #F4EFFF;
+            background-image: url(img/Vector1.svg); 
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Контейнер для формы входа */
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Заголовок */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        /* Стили для полей ввода */
+        .input-field {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        /* Стили для кнопки входа */
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            text-align: center;
+            background-color: #a29bb8; /* Неактивный цвет */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: not-allowed; /* Запрещённый курсор, пока кнопка неактивна */
+            border: none;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Когда кнопка активна, она становится темнее */
+        .button.active {
+            background-color: #65558F;
+            cursor: pointer;
+        }
+
+        .button.active:hover {
+            background-color: #65558F;
+        }
+
+        /* Сообщение об ошибке */
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+            text-align: left;
+        }
+
+        /* Стили для стрелки "Назад" */
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #8e8eb9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-arrow:hover {
+            color: #6e6e8f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Стрелка назад -->
+    <a href="javascript:history.back()" class="back-arrow">&#8592;</a>
+    <a href="role selection.html" class="back-arrow">&#8592;</a>
+    
+    <!-- Контейнер с формой входа -->
+    <div class="container">
+        <h1>Вход</h1>
+        <form id="loginForm">
+            <input type="text" id="login" class="input-field" placeholder="Логин" required>
+            <input type="password" id="password" class="input-field" placeholder="Пароль" required>
+            <p id="errorMessage" class="error-message">Неправильно введены данные</p>
+            <button type="submit" class="button" id="submitButton" disabled>Войти</button>
+        </form>
+    </div>
+    
+    <script>
+        // Получаем элементы формы
+        const loginInput = document.getElementById('login');
+        const passwordInput = document.getElementById('password');
+        const submitButton = document.getElementById('submitButton');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Указываем допустимые логин и пароль
+        const validCredentials = {
+            login: "логин", // Укажите правильный логин
+            password: "пароль" // Укажите правильный пароль
+        };
+
+        // Функция для активации/деактивации кнопки входа
+        function updateButtonState() {
+            if (loginInput.value.trim() && passwordInput.value.trim()) {
+                submitButton.disabled = false;
+                submitButton.classList.add('active');
+            } else {
+                submitButton.disabled = true;
+                submitButton.classList.remove('active');
+            }
+            errorMessage.style.display = 'none'; // Скрываем ошибку при изменении данных
+        }
+
+        // Обработчик отправки формы
+        document.getElementById('loginForm').addEventListener('submit', (event) => {
+            event.preventDefault(); // Предотвращаем перезагрузку страницы
+
+            const login = loginInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            // Проверяем введённые данные
+            if (login === validCredentials.login && password === validCredentials.password) {
+                window.location.href = "admin/admin selection.html"; // Перенаправление на главную страницу
+            } else {
+                errorMessage.style.display = 'block'; // Показываем сообщение об ошибке
+                submitButton.disabled = true;
+                submitButton.classList.remove('active');
+            }
+        });
+
+        // Добавляем обработчики ввода для активации кнопки
+        loginInput.addEventListener('input', updateButtonState);
+        passwordInput.addEventListener('input', updateButtonState);
+    </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Устанавливаем кодировку и настройки для адаптивности страницы -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список студентов</title>
+    <link rel="stylesheet" href="student-portfolio.css">
+</head>
+<body>
+    <!-- Шапка с кнопками "Добавить" и "Выход" -->
+    <div class="header">
+        <div>
+            <button onclick="window.location.href='administrator (select role).html'">Добавить</button>
+            <button onclick="window.location.href='admin selection.html'">Назад</button>
+        </div>
+        <button onclick="logout()">Выход</button>
+    </div>
+
+    <!-- Кнопка для фильтрации по классу -->
+        <div class="info">
+            <div class="filters">
+                <div class="dropdown">
+                    <button class="class-button" onclick="toggleDropdown()">
+                        Класс (число)
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M7 10l5 5 5-5H7z"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-content" id="numDropdown">
+                        <!-- Список классов с чекбоксами -->
+                        <label>1 <input type="checkbox" value="1" class="class-checkbox"></label>
+                        <label>2 <input type="checkbox" value="2" class="class-checkbox"></label>
+                        <label>3 <input type="checkbox" value="3" class="class-checkbox"></label>
+                        <label>4 <input type="checkbox" value="4" class="class-checkbox"></label>
+                        <label>5 <input type="checkbox" value="5" class="class-checkbox"></label>
+                        <label>6 <input type="checkbox" value="6" class="class-checkbox"></label>
+                        <label>7 <input type="checkbox" value="7" class="class-checkbox"></label>
+                        <label>8 <input type="checkbox" value="8" class="class-checkbox"></label>
+                        <label>9 <input type="checkbox" value="9" class="class-checkbox"></label>
+                        <label>10 <input type="checkbox" value="10" class="class-checkbox"></label>
+                        <label>11 <input type="checkbox" value="11" class="class-checkbox"></label>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="class-button" onclick="Dropdown()">
+                        Класс (буква)
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M7 10l5 5 5-5H7z"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-content" id="classDropdown">
+                        <!-- Список классов с чекбоксами -->
+                        <label>А<input type="checkbox" value="А" class="class-checkbox"></label>
+                        <label>Б<input type="checkbox" value="Б" class="class-checkbox"></label>
+                        <label>В<input type="checkbox" value="В" class="class-checkbox"></label>
+                        <label>Г<input type="checkbox" value="Г" class="class-checkbox"></label>
+                        <label>Д<input type="checkbox" value="Д" class="class-checkbox"></label>
+                    </div>
+                </div>
+                <div id="Participation-level" class="dropdown-content">
+                    <label value="" disabled selected>Уровень</label>
+                    <label value="Всероссийский заочный">Всероссийский заочный</label>
+                    <label value="Всероссийский очный">Всероссийский очный</label>
+                    <label value="Международный заочный">Международный заочный</label>
+                    <label value="Международный очный">Международный очный</label>
+                    <label value="Окружной заочный">Окружной заочный</label>
+                    <label value="Окружной очный">Окружной очный</label>
+                    <label value="Регионалный заочный">Регионалный заочный</label>
+                    <label value="Региональный очный">Региональный очный</label>
+                    <label value="Школьный заочный">Школьный заочный</label>
+                    <label value="Школьный очный">Школьный очный</label>
+                </div>
+                <div id="direction" class="dropdown-content">
+                    <label value="" disabled selected>Направление</label>
+                    <label value="Астрономия">Астрономия</label>
+                    <label value="Биология">Биология</label>
+                    <label value="Генетика">Генетика</label>
+                    <label value="География">География</label>
+                    <label value="Геология">Геология</label>
+                    <label value="Гум и соц. науки">Гум. и соц. науки</label>
+                    <label value="Дизайн">Дизайн</label>
+                    <label value="Естественные науки">Естественные науки</label>
+                    <label value="Журналистика">Журналистика</label>
+                    <label value="Инженерное дело">Инженерное дело</label>
+                    <label value="Иностранный язык">Иностранный язык</label>
+                    <label value="Информатика">Информатика</label>
+                    <label value="Искусственный интеллект">Искусственный интеллект</label>
+                    <label value="История">История</label>
+                    <label value="Лингвистика">Лингвистика</label>
+                    <label value="Литература">Литература</label>
+                    <label value="Математика">Математика</label>
+                    <label value="Международные отношения">Международные отношения</label>
+                    <label value="Музыка">Музыка</label>
+                    <label value="Право">Право</label>
+                    <label value="Психология">Психология</label>
+                    <label value="Робототехника">Робототехника</label>
+                    <label value="Спорт">Спорт</label>
+                    <label value="Творчество">Творчество</label>
+                    <label value="Теория и история музыки">Теория и история музыки</label>
+                    <label value="Физика">Физика</label>
+                    <label value="Философия">Философия</label>
+                    <label value="Финансовая грамотность">Финансовая грамотность</label>
+                    <label value="Химия">Химия</label>
+                    <label value="Экономика">Экономика</label>
+                </div>
+            </div>
+        </div>
+    <!-- Список студентов -->
+    <div class="user-list" id="userList">
+        <!-- Здесь будут отображаться студенты -->
+    </div>
+
+
+
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <a href="#" class="back-arrow" onclick="closeDeleteModal()">&#8592;</a>
+            <h2>Вы собираетесь удалить олимпиаду. Вы уверены?</h2>
+            <button id="confirmDelete">Удалить</button>
+        </div>
+    </div>
+
+    <script>
+        // Получаем список студентов из localStorage, если он существует
+        const userList = document.getElementById('userList');
+        const checkboxes = document.querySelectorAll('.class-checkbox');
+        const classDropdown = document.getElementById('classDropdown');
+        const numDropdown = document.getElementById('numDropdown');
+
+        // Функция для отображения или скрытия выпадающего списка классов
+        function toggleDropdown() {
+            numDropdown.style.display = numDropdown.style.display === 'block' ? 'none' : 'block';
+        }
+        function Dropdown() {
+            classDropdown.style.display = classDropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+
+        // Пример данных студентов
+        const students = JSON.parse(localStorage.getItem('apprentice')) || [
+            { lastName: "Иванов", firstName: "Иван", middleName: "Иванович", classNumber: "1", classLetter: 'А' },
+            { lastName: "Петров", firstName: "Петр", middleName: "Петрович", classNumber: "1", classLetter: 'А'  },
+            { lastName: "Сидоров", firstName: "Сидор", middleName: "Сидорович", classNumber: "1", classLetter: 'А'  },
+            { lastName: "Волкова", firstName: "Мария", middleName: "Алексеевна", classNumber: "1", classLetter: 'А'  },
+        ];
+
+        // Функция для отображения списка студентов
+        function renderStudents() {
+            // Фильтруем студентов по выбранным классам
+            const selectedClasses = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            userList.innerHTML = ''; // Очищаем текущий список студентов
+
+            const filteredStudents = selectedClasses.length
+                ? students.filter(student => selectedClasses.includes(student.class))
+                : students; // Если классы выбраны, фильтруем, иначе показываем всех студентов
+
+            if (filteredStudents.length) {
+                filteredStudents.forEach((student, index) => {
+                    const lastName = student.lastName || '';
+                    const firstName = student.firstName || '';
+                    const middleName = student.middleName || '';
+                    const classNumber = student.classNumber || '';
+                    const classLetter = student.classLetter || '';
+
+                    // Создаем элемент для каждого студента
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    userItem.innerHTML = `
+                        <span>${lastName} ${firstName} ${middleName} ${classNumber} ${classLetter}</span>
+                        <button onclick="event.stopPropagation(); removeStudent(${index})">&times;</button>
+                    `;
+                    userItem.addEventListener('click', () => redirectToEditPage(student));
+                    userList.appendChild(userItem);
+                });
+            } else {
+                userList.innerHTML = '<div>Нет учеников для отображения</div>';
+            }
+        }
+
+        // Функция для удаления студента
+        function removeStudent(index) {
+            students.splice(index, 1); // Удаляем студента из массива
+            localStorage.setItem('apprentice', JSON.stringify(students)); // Сохраняем изменения в localStorage
+            renderStudents(); // Перерисовываем список
+        }
+
+        // Функция для редиректа на страницу редактирования
+        function redirectToEditPage(student) {
+            localStorage.setItem('editingStudent', JSON.stringify(student));
+            window.location.href = 'add_teacher.html'; // Переход на страницу редактирования
+        }
+
+        // Функция для выхода (удаляет текущего пользователя из localStorage)
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'role selection.html'; // Переход на страницу входа
+        }
+
+        // Изначально отображаем студентов
+        renderStudents();
+
+        // Добавляем обработчик для изменения фильтров классов
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', renderStudents);
+        });
+        
+    </script>
+</body>
+</html>

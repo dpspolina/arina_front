@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление</title>
+    <link rel="stylesheet" href="admin selection.css">
+</head>
+<body>
+    <!-- Шапка с кнопками "Добавить" и "Выход" -->
+    <div class="header">
+        <button onclick="window.location.href='administrator (select role).html'">Добавить</button>
+        <button id="logoutButton">Выход</button>
+    </div>
+
+    <!-- Контейнер для вывода списка олимпиад -->
+    <div class="modal" id="logoutModal">
+        <div class="modal-content">
+            <a href="javascript:history.back()" class="back-arrow" onclick="closeModal()">&#8592;</a>
+            <h2>Вы собираетесь выйти из аккаунта. Вы уверены?</h2>
+            <button onclick="window.location.href='role selection.html'">Выйти</button>
+        </div>
+    </div>
+    <div class="selection">
+        <h2 class="selection__title">Выберите, какой список вы хотите посмотреть</h2>
+        <div class="selection__btn">
+            <div class="selection__btn__item"><a href="teacher page.html">Учителей</a></div>
+            <div class="selection__btn__item"><a href="student page.html">Учеников</a></div>
+        </div>
+    </div>
+    <script src="admin/admin selection.js"></script>
+</body>
+</html>
